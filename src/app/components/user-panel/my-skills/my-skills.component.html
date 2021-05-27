@@ -1,0 +1,41 @@
+<div class="container">
+  <ng-container *ngIf="posts">
+    <h2>My needs</h2>
+    <div class="row">
+      <div class=" col-md-3 mb-3" *ngFor="let post of posts | type: 'NEEDS'">
+        <div class="card   h-100">
+          <img class="card-img-top mx-auto" src="{{post.category.image}}" alt="Card image">
+          <div class="card-body">
+            <h5 class="card-title">{{post.title}}</h5>
+            <p class="card-text">{{post.description}}</p>
+            <p class="card-text">{{post.details}}</p>
+            <a class="btn btn-primary mx-1" (click)="open(post.id)">Edit</a>
+            <a class="btn btn-primary" (click)="deletePost(post.id)">Delete</a>
+          </div>
+          <div class="card-body">
+            <img width="20px" height="20px" src="../../../assets/images/image-1.jpg" alt="">
+            <span> {{post.author.firstname}} {{post.author.lastname}}</span>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h2>My skills</h2>
+    <div class=" col-md-3 mb-3" *ngFor="let post of posts | type: 'SKILLS'">
+      <div class="card  h-100">
+        <img class="card-img-top mx-auto" src="{{post.category.image}}" alt="Card image">
+        <div class="card-body ">
+          <h5 class="card-title">{{post.title}}</h5>
+          <p class="card-text">{{post.description}}</p>
+          <a class="btn btn-primary mx-1" (click)="open(post.id)">Edit</a>
+          <a class="btn btn-primary " (click)="deletePost(post.id)">Delete</a>
+        </div>
+        <div class="card-body">
+          <img width="20px" height="20px" src="../../../assets/images/image-1.jpg" alt="">
+          <span> {{post.author.firstname}} {{post.author.lastname}}</span>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,25 @@
+<form class="form-signin h-75 w-25 mt-3" [formGroup]="">
+  <h1 class="h3 mb-3 fw-normal">Account</h1>
+
+  <div class="form-floating mt-3">
+    <input formControlName="firstname"  name="firstname" type="text" class="form-control">
+    <label for="floatingInput">Firstname</label>
+  </div>
+  <div class="form-floating mt-3">
+    <input formControlName="lastname"  name="lastname" type="text" class="form-control">
+    <label for="floatingInput">Lastname</label>
+  </div>
+  <div class="col-8 mt-3">
+    <label for="customFile" class="form-label">Upload profile image</label>
+    <input type="file" class="" id="customFile">
+  </div>
+  <div class="form-floating mt-3">
+    <input formControlName="location"  name="location" type="text" class="form-control">
+    <label for="floatingInput">Location</label>
+  </div>
+  <div class="form-floating mt-3">
+    <h2>Map</h2>
+  </div>
+  <button class="w-100 btn btn-primary mt-3" type="submit" >
+    Change password</button>
+</form>

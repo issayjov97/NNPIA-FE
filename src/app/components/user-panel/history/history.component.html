@@ -1,0 +1,56 @@
+<div class="container mx-0 " *ngIf="transactions">
+  <h2>Delivered skills</h2>
+  <table class="table table-striped" *ngIf="hasDeliveredSkills()">
+    <thead>
+      <tr>
+        <th scope="col">Member</th>
+        <th scope="col">Skill</th>
+        <th scope="col">Hours</th>
+        <th scope="col">Delivered at</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions; index as i">
+        <ng-container *ngIf="transaction.post.author.username == this.loginService.getUser().username">
+          <td>
+            {{ transaction.user.firstname }}
+            {{ transaction.user.lastname }}
+          </td>
+          <td>{{ transaction.post.title }}</td>
+          <td>{{ transaction.agreedSkillHours }}</td>
+          <td>{{ transaction.deliveredByRequesterAt}}</td>
+          <td>{{ transaction.status}}</td>
+
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Received  skills</h2>
+  <table class="table table-striped" *ngIf="hasRecievedSkills()">
+    <thead>
+      <tr>
+        <th scope="col">Member</th>
+        <th scope="col">Skill</th>
+        <th scope="col">Hours</th>
+        <th scope="col">Received at</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions; index as i">
+        <ng-container *ngIf="transaction.user.username == this.loginService.getUser().username">
+          <td>
+            {{ transaction.user.firstname }}
+            {{ transaction.user.lastname }}
+          </td>
+          <td>{{ transaction.post.title }}</td>
+          <td>{{ transaction.agreedSkillHours }}</td>
+          <td>{{ transaction.deliveredByRequesterAt}}</td>
+          <td>{{ transaction.status}}</td>
+
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>

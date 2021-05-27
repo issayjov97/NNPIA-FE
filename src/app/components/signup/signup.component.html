@@ -1,0 +1,140 @@
+<form class="form-signin h-75" [formGroup]="signupForm" (ngSubmit)=signup(signupForm.value)>
+  <legend class="h3 mb-3 fw-normal">Please sign in</legend>
+
+  <div class="form-floating">
+    <input name="firstname" type="text" class="form-control" id="firstname" placeholder="firstname"
+      formControlName="firstname">
+    <label for="floatingFirstname">Firstname</label>
+
+    <!-- START ERROR ALERT -->
+
+    <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
+      <div *ngIf="firstname.errors?.required">
+        Name is required.
+      </div>
+      <div *ngIf="firstname.errors?.minlength">
+        Name must be at least 3 characters long.
+      </div>
+    </div>
+
+    <!-- END ERROR ALERT -->
+
+  </div>
+  <div class="form-floating">
+    <input name="lastname" type="text" class="form-control" id="lastname" placeholder="lastname"
+      formControlName="lastname">
+    <label for="floatingLastname">Lastname</label>
+
+    <!-- START ERROR ALERT -->
+
+    <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
+      <div *ngIf="lastname.errors?.required">
+        Lastname is required.
+      </div>
+      <div *ngIf="lastname.errors?.minlength">
+        Lastname must be at least 3 characters long.
+      </div>
+    </div>
+
+    <!-- END ERROR ALERT -->
+
+  </div>
+  <div class="form-floating ">
+    <input matInput name="username" type="text" class="form-control" id="username" placeholder="username"
+      formControlName="username">
+    <label for="floatingUsername">Username</label>
+
+    <!-- START ERROR ALERT -->
+
+    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+      <div *ngIf="username.errors?.required">
+        Username is required.
+      </div>
+      <div *ngIf="username.errors?.minlength">
+        Username must be at least 6 characters long.
+      </div>
+    </div>
+
+    <!-- END ERROR ALERT -->
+
+  </div>
+  <div class="form-floating ">
+    <input matInput name="email" type="email" class="form-control" id="email" placeholder="name@example.com"
+      formControlName="email">
+    <label for="floatingInput">Email address</label>
+
+    <!-- START ERROR ALERT -->
+
+    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+      <div *ngIf="email.errors?.required">
+        Email is required.
+      </div>
+      <div *ngIf="email.errors?.email">
+        Invalid email, please enter valid email
+      </div>
+    </div>
+
+    <!-- END ERROR ALERT -->
+
+  </div>
+  <div formGroupName="passwords">
+    <p> </p>
+    <div class="form-floating">
+      <input name="password" type="password" class="form-control" id="password" placeholder="Password"
+        formControlName="password">
+      <label for="floatingPassword">Password</label>
+
+      <!-- START ERROR ALERT -->
+
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+        <div *ngIf="password.errors?.required">
+          Password is required.
+        </div>
+        <div *ngIf="password.errors?.minlength">
+          Password must be at least 8 characters long.
+        </div>
+      </div>
+
+      <!-- END ERROR ALERT -->
+
+    </div>
+    <div class="form-floating">
+      <input name="cpPassword" type="password" class="form-control" id="cpPassword" placeholder="Confirm password"
+        formControlName="cppassword">
+      <label for="floatingCPPassword">Confirm password</label>
+
+      <!-- START ERROR ALERT -->
+
+      <div *ngIf="cppassword.invalid && (cppassword.dirty || cppassword.touched)" class="alert alert-danger">
+        <div *ngIf="cppassword.errors?.required">
+          Password is required.
+        </div>
+        <div *ngIf="cppassword.errors?.minlength">
+          Password must be at least 8 characters long.
+        </div>
+      </div>
+
+      <!-- END ERROR ALERT -->
+
+    </div>
+
+       <!-- START ERROR ALERT -->
+
+        <div class="alert alert-danger" *ngIf="passwords.errors?.nonEqualsPassword">
+          Passwords must be the same
+        </div>
+
+      <!-- END ERROR ALERT -->
+  </div>
+
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+  <button id="signup" class="w-100 btn btn-lg btn-primary mb-2" type="submit" [disabled]="!signupForm.valid">Sign
+    up</button>
+  <button id="signin" class="w-100 btn btn-lg btn-primary" type="submit" routerLink="/login">Sign in</button>
+
+  <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+</form>

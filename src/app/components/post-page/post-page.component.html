@@ -1,0 +1,40 @@
+<div class="container post" [formGroup]="postFormGroup">
+  <div class="row  mb-4">
+    <h2>{{keyword == 'skill'? "Post a skill":"Post a need"}}</h2>
+    <div class="col-2">
+      <select formControlName="category" #category placeholder="Category" class="form-select" id="inputGroupSelect03">
+        <option disabled selected>Select category</option>
+        <option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</option>
+      </select>
+    </div>
+    <div class="col-2">
+      <select formControlName="type" placeholder="Category" class="form-select" id="inputGroupSelect03">
+        <option disabled selected>Select Type</option>
+        <option value="{{PostType[PostType.NEEDS]}}">{{PostType[PostType.NEEDS]}}</option>
+        <option value="{{PostType[PostType.SKILLS]}}">{{PostType[PostType.SKILLS]}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-2">
+    <input formControlName="location" id="location" type="text" class="form-control " name="location"
+      placeholder="Location">
+  </div>
+  <div class="col-4 mt-3">
+    <label for="exampleFormControlInput1" class="form-label">Title</label>
+    <input formControlName="title" type="text" class="form-control" placeholder="English">
+  </div>
+  <div class="col-8 mt-3">
+    <label for="customFile" class="form-label">Upload Image</label>
+    <input type="file" class="" id="customFile">
+  </div>
+  <div class="col-6  mt-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+    <textarea formControlName="description" class="form-control" rows="3"></textarea>
+  </div>
+  <div class="col-6 mt-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Details</label>
+    <textarea formControlName="details" class="form-control" rows="3"></textarea>
+  </div>
+  <button (click)="onSubmit()" type="submit" class="btn btn-primary mt-3" [disabled]="!postFormGroup.valid">Submit</button>
+
+</div>

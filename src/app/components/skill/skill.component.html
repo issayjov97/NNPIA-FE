@@ -1,0 +1,39 @@
+<div class="container skill w-75">
+  <div class="row " *ngIf="currentPost">
+    <div class="col-6  mx-auto">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/skills">Discover</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Skill</li>
+        </ol>
+      </nav>
+      <div class="title">
+        <h2>{{currentPost.title}}</h2>
+      </div>
+      <img class="card-img-top" width="200" height="300" src="{{currentPost.category.image}}" alt="Card image cap">
+      <div class="card-body">
+        <div class="description">
+          <h2>Description</h2>
+          <p class="card-text">{{currentPost.description}}</p>
+        </div>
+        <div *ngIf='currentPost.details' class="details">
+          <h2>Details</h2>
+          <p>{{currentPost.details}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-2">
+      <img class="card-img-top" src="./../../assets/images/image-1.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h4>{{currentPost.author.firstname}} {{currentPost.author.lastname}}</h4>
+        <ngb-rating [rate]="currentPost.author.rating"></ngb-rating>
+        <p class="earned-hours">Earned hours: {{currentPost.author.earned}}</p>
+        <p class="available-hours">Available hours: {{currentPost.author.available}}</p>
+        <p class="used-hours">Used hours: {{currentPost.author.used}}</p>
+      </div>
+      <button class="btn btn-primary w-100" type="submit" (click)="createRequest()">
+        {{currentPost.type == postType[postType.NEEDS] ? "Offer help" : "Request service"}}
+      </button>
+    </div>
+  </div>
+</div>

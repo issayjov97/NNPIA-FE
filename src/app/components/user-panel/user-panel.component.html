@@ -1,0 +1,37 @@
+<div class="container user-panel">
+
+  <div class="w-75">
+    <h2 class="mb-3">Welcome {{this.user.firstname}} {{this.user.lastname}} </h2>
+    <div class="row">
+      <span class="col-3">{{this.user.available}} Available skillhours</span>
+      <span class="col-3">{{this.user.earned}} Earned skillhours</span>
+      <span class="col-3">{{this.user.used}} Used skillhours</span>
+      <span class="col-3">{{this.user.rating}} Rating</span>
+    </div>
+  </div>
+  <ul class="nav nav-tabs  mt-5">
+    <li class="nav-item">
+      <a class="nav-link active" routerLink = "transactions">My transactions</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="wishlist">My wishlist</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="history">History</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="my-skills">My skills</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="settings">Settings</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="password-reset">Change password</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="account-deactivation">Deactivate account</a>
+    </li>
+  </ul>
+  <router-outlet></router-outlet>
+
+</div>

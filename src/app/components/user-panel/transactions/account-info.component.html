@@ -1,0 +1,161 @@
+<div class="container mx-0 " *ngIf="myTransactions">
+  <h2>Skills requests</h2>
+  <table class="table table-striped" *ngIf="hasRequests()">
+    <thead>
+      <tr>
+        <th scope="col">Member</th>
+        <th scope="col">Skill</th>
+        <th scope="col">Requested at</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of myTransactions; index as i">
+        <ng-container *ngIf="transaction.status == transactionState[transactionState.REQUESTED]">
+          <td>
+            {{ transaction.user.firstname }}
+            {{ transaction.user.lastname }}
+          </td>
+          <td>{{ transaction.post.title }}</td>
+          <td>{{ transaction.requestedAt}}</td>
+          <td>
+            <button (click)="setTransaction(i)" type="button" class="btn btn-primary">Details</button>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+  <h2>Active processes</h2>
+  <table class="table table-striped" *ngIf="hasActiveProcesses()">
+    <thead>
+      <tr>
+        <th scope="col">Member</th>
+        <th scope="col">Skill</th>
+        <th scope="col">Requested at</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of myTransactions; index as i">
+        <ng-container *ngIf="transaction.status == transactionState[transactionState.APPROVED] ||
+            transaction.status ==  transactionState[transactionState.ACTIVE]">
+          <td>
+            {{ transaction.user.firstname }}
+            {{ transaction.user.lastname }}
+          </td>
+          <td>{{ transaction.post.title }}</td>
+          <td>{{ transaction.requestedAt}}</td>
+          <td>
+            <button (click)="setTransaction(i)" type="button" class="btn btn-primary">Details</button>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="container text-center" *ngIf="selectedTransaction">
+
+    <h2>Process status</h2>
+    <p>{{selectedTransaction.post.title}}</p>
+    <div class="mb-5">
+      <span>
+        {{selectedTransaction.post.author.firstname}}
+        {{selectedTransaction.post.author.lastname}}
+      </span>
+      <span>
+        <------------------------->
+      </span>
+      <span>
+        {{selectedTransaction.user.firstname}}
+        {{selectedTransaction.user.lastname}}
+      </span>
+    </div>
+    <div class="text-white pt-5">
+      <span class="rounded-circle bg-secondary py-4 px-1"> 1. Contact</span>
+      <span class="text-secondary">-----------</span>
+      <span class="border border-dark bg-secondary p-1">information exchange</span>
+      <span class="text-secondary">-----------</span>
+      <span class="rounded-circle bg-secondary py-4 px-1"> 2. Agreement</span>
+      <span class="text-secondary">-----------</span>
+      <span class="border border-dark bg-secondary p-1"> skill delivery</span>
+      <span class="text-secondary">-----------</span>
+      <span class="rounded-circle bg-secondary py-4 px-1">3. Finalization</span>
+
+    </div>
+    <div class="mt-5">
+      <div>
+        Service requested at {{selectedTransaction.requestedAt}}
+        <i class="bi bi-check-circle"></i>
+      </div>
+      <div *ngIf="showRequestApproveDialog()">
+        <h2 class="m-4">Do you want to approve this request?</h2>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-primary" (click)="changeTransactionState()">Yes</button>
+          <button type="button" class="btn btn-primary">No</button>
+        </div>
+      </div>
+
+      <div class="text-center" *ngIf="showSkillHOursInput()">
+        <p class="m-4">
+          <i class="bi bi-envelope-open"></i>
+          Please contact
+          {{selectedTransaction.post.author.firstname}}
+          {{selectedTransaction.post.author.lastname}}
+          by mail to agree on all relevant topics
+          (such as contents, number of skillhours, location, date).
+          Only thereafter, approve the below request and its amount of skillhours.
+        </p>
+        <input #hours type="text" class="form-control mx-auto  w-25" name="msg" placeholder="Skill hours" required>
+        <button type="button" class="btn btn-primary mt-4" (click)="setTransactionSkillHours(hours.value)">OK</button>
+      </div>
+      <div class="text-center" *ngIf="selectedTransaction.agreedSkillHours">
+        <p class="m-4">
+          Agreed skillhours: {{selectedTransaction.agreedSkillHours}}
+        </p>
+        <p *ngIf="showSkillHOursConfirmationDialog()">
+          <button type="button" class="btn btn-primary mt-4" (click)="confirmTransactionSkillHours()">Confirm
+            hours</button>
+        </p>
+      </div>
+      <div class="text-center" *ngIf="showDeliveredConfirmationDialog()">
+
+        <p class="m-4" *ngIf="selectedTransaction.deliveredByAuthorAt == null">
+          Set as delivered
+          <br>
+          <button type="button" class="btn btn-primary mt-4" (click)="confirmDeliveryByAuthor()">Confirm</button>
+          <ngb-rating [(rate)]="selectedTransaction.user.rating" >Your rate
+          </ngb-rating>
+
+        </p>
+        <div *ngIf="selectedTransaction.deliveredByAuthorAt">
+          <p>
+            Delivered at {{selectedTransaction.deliveredByAuthorAt}}
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center" *ngIf="showConfirmDeliveredConfirmationDialog()">
+        <p class="m-4" *ngIf="selectedTransaction.deliveredByAuthorAt &&
+        selectedTransaction.deliveredByRequesterA == undefined">
+          Confirm as delivered
+          <br>
+          <button type="button" class="btn btn-primary mt-4" (click)="confirmDeliveryByRequester()">Confirm bbb</button>
+          <ngb-rating [(rate)]="selectedTransaction.post.author.rating">Your rate
+          </ngb-rating>
+        </p>
+
+      </div>
+
+      <div *ngIf="showRatingAuhtorDialog()">
+        <p>
+          Delivered at {{selectedTransaction.deliveredByRequesterAt}}
+        </p>
+        <p>
+        </p>
+      </div>
+
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+
+</div>

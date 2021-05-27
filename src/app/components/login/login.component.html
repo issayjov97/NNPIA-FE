@@ -1,0 +1,41 @@
+<form class="form-signin h-75" #f="ngForm" (ngSubmit)=login(f.value)>
+  <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+  <div class="form-floating mb-3">
+    <input matInput name="email" type="email" class="form-control" id="email" placeholder="name@example.com"
+       required ngModel  #email="ngModel">
+    <label for="floatingInput">Email address</label>
+
+    <div *ngIf="email.invalid && (email.touched)" class="alert">
+      <div *ngIf="email.errors?.required" class="alert alert-danger">
+        Username is required.
+      </div>
+      <div *ngIf="email.errors?.forbiddenName">
+        Name cannot be Bob.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-floating">
+    <input name="password" type="password" class="form-control" id="password" placeholder="Password" ngModel required #password="ngModel">
+    <label for="floatingPassword">Password</label>
+
+    <div *ngIf="password.invalid && (password.touched)" class="alert">
+      <div *ngIf="password.errors?.required" class="alert alert-danger">
+        Password is required.
+      </div>
+      <div *ngIf="password.errors?.forbiddenName">
+        Password cannot be Bob.
+      </div>
+    </div>
+  </div>
+
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+  <button id="login" class="w-100 btn btn-lg btn-primary mb-2" type="submit" [disabled]="!f.valid" >Sign in</button>
+  <button id="signup" class="w-100 btn btn-lg btn-primary" type="submit" routerLink="/signup">Sign up</button>
+  <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+</form>

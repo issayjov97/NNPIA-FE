@@ -1,0 +1,73 @@
+<form class=" container discover w-75">
+  <div class="row  mx-auto">
+    <div class="col input-group mb-3">
+      <select #category placeholder="Category" class="form-select" id="inputGroupSelect03">
+        <option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</option>
+      </select>
+    </div>
+    <div class="col input-group mb-3">
+      <input #location type="text" class="form-control " name="location" placeholder="Location">
+    </div>
+    <div class="col input-group mb-3">
+      <input #description type="text" class="form-control mb-2" name="msg" placeholder="Description">
+    </div>
+    <div class="col input-group mb-3">
+      <button class="btn btn-outline-secondary mb-2" type="button" (click)="getAllPosts(
+        {
+          category: category.value,
+          location: location.value,
+          description: description.value
+        }
+        )">Search</button>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <button class="btn btn-outline-secondary m-10" type="button" (click)='getAllPosts()'>All</button>
+      <button class="btn btn-outline-secondary ml-2" type="button"
+        (click)='getAllPosts({type:"SKILLS"})'>Skills</button>
+      <button class="btn btn-outline-secondary ml-2" type="button" (click)='getAllPosts({type:"NEEDS"})'>Needs</button>
+    </div>
+  </div>
+</form>
+<div class="container">
+  <div class="row">
+    <div class=" col-md-3 mb-3" *ngFor="let post of posts.posts">
+      <div class="card align-items-stretch h-100">
+        <img class="card-img-top mx-auto mt-2 " src="{{post.category.image}}" alt="Card image">
+        <div class="card-body mt-auto">
+          <div>
+            <div>
+              <h5 class="card-title">{{post.title}}</h5>
+              <p class="card-text">{{post.description}}</p>
+              <a routerLink="/skill/{{post.id}}" class="btn btn-primary ">View</a>
+            </div>
+            <div class="card-body">
+              <img width="20px" height="20px" src="../../../assets/images/image-1.jpg" alt="">
+              <span> {{post.author.firstname}} {{post.author.lastname}}</span>
+              <div>
+                <ngb-rating [rate]="post.author.rating" (rateChange)="updateRate($event)"></ngb-rating>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagination">
+    <div class="">
+    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="posts.totalCount"
+      (pageChange)="updatePage()" aria-label="Default pagination">
+    </ngb-pagination>
+  </div>
+    <div class="ml-3">
+    <span class="ml-2">Page size</span>
+    <!--(change)="updatePageSize($event.target.value)-->
+    <select class="form-select" style="width:auto" (change)="updatePageSize($event.target.value)">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+    </select>
+  </div>
+  </div>
+</div>

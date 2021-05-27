@@ -1,0 +1,31 @@
+<div class="container">
+<div class="modal-header">
+  <h4 class="modal-title">Details</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form *ngIf="this.post" >
+    <div class="form-group">
+      <label for="recipient-name" class="col-form-label">Title: {{this.post.title}}</label>
+      <input type="text" class="form-control" id="recipient-name" name = "title"  [(ngModel)]="this.post.title">
+    </div>
+    <div class="form-group">
+      <label for="recipient-name" class="col-form-label">Description:</label>
+      <input  type="text" class="form-control" id="recipient-name" name = "description" [(ngModel)]="post.description" >
+    </div>
+    <div class="form-group">
+      <label for="recipient-name" class="col-form-label">Details:</label>
+      <input type="text" class="form-control" id="recipient-name" name = "details" [(ngModel)]="post.details">
+    </div>
+    <div class="col-8 mt-3">
+      <label for="customFile" class="form-label">Change Image</label>
+      <input type="file" class="" id="customFile" name = "image">
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click');updatePost();">Save</button>
+</div>
+</div>
