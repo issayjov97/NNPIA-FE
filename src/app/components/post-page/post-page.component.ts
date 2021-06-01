@@ -7,8 +7,6 @@ import { Category } from './../skills/category';
 import { SkillsService } from './../skills/skills.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-import { NgbRating} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -49,6 +47,7 @@ export class PostPageComponent implements OnInit {
       location: new FormControl('', [Validators.required, Validators.minLength(2)]),
       title: new FormControl('', [Validators.required, Validators.minLength(6)]),
       description: new FormControl('', [Validators.required, Validators.minLength(10)]),
+      image: new FormControl(''),
       details: new FormControl('', [Validators.required,])
     });
   }
@@ -68,20 +67,18 @@ export class PostPageComponent implements OnInit {
     this.newPost = new Post();
     this.newPost.category = new Category();
     this.newPost.category.name = this.postFormGroup.get('category').value;
+    this.newPost.category.image = this.postFormGroup.get('image').value;
     this.newPost.details = this.postFormGroup.get('details').value;
     this.newPost.description = this.postFormGroup.get('description').value;
     this.newPost.title = this.postFormGroup.get('title').value;
     this.newPost.type = this.postFormGroup.get('type').value;
     this.newPost.author = this.loginService.getUser();
+    console.log(this.newPost);
     this.postPageSrvice.createPost(this.newPost).subscribe(
-      (data) => { console.log(data) },
+      (data) => {alert("Post was successfully created!") },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
     );
-
   }
-
-
-
 }

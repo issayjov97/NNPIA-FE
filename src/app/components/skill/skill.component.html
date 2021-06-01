@@ -7,8 +7,12 @@
           <li class="breadcrumb-item active" aria-current="page">Skill</li>
         </ol>
       </nav>
-      <div class="title">
+      <div class="title d-flex justify-content-between mb-4">
         <h2>{{currentPost.title}}</h2>
+        <button class="btn btn-danger " type="submit" (click)="updateWishList()">
+          <i class="bi bi-bookmark-heart"></i>
+          Add to wishlist
+        </button>
       </div>
       <img class="card-img-top" width="200" height="300" src="{{currentPost.category.image}}" alt="Card image cap">
       <div class="card-body">

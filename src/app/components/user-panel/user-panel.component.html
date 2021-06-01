@@ -1,7 +1,8 @@
 <div class="container user-panel">
 
   <div class="w-75">
-    <h2 class="mb-3">Welcome {{this.user.firstname}} {{this.user.lastname}} </h2>
+    <img class="rounded-circle" src="/skills-fe/src/assets/images/cooking.png" alt="" width="120" height="120">
+    <h2 class="mb-3">{{this.user.firstname}} {{this.user.lastname}} </h2>
     <div class="row">
       <span class="col-3">{{this.user.available}} Available skillhours</span>
       <span class="col-3">{{this.user.earned}} Earned skillhours</span>
@@ -11,7 +12,7 @@
   </div>
   <ul class="nav nav-tabs  mt-5">
     <li class="nav-item">
-      <a class="nav-link active" routerLink = "transactions">My transactions</a>
+      <a class="nav-link active" routerLink="transactions">My transactions</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" routerLink="wishlist">My wishlist</a>

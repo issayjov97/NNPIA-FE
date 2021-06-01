@@ -55,22 +55,23 @@
 
   <div class="container text-center" *ngIf="selectedTransaction">
 
-    <h2>Process status</h2>
-    <p>{{selectedTransaction.post.title}}</p>
-    <div class="mb-5">
+    <h2>Process status: {{selectedTransaction.status}}</h2>
+    <p>Post: {{selectedTransaction.post.title}}</p>
+    <!-- <div class="mb-5">
       <span>
         {{selectedTransaction.post.author.firstname}}
         {{selectedTransaction.post.author.lastname}}
       </span>
       <span>
         <------------------------->
-      </span>
+    <!-- </span>
       <span>
         {{selectedTransaction.user.firstname}}
         {{selectedTransaction.user.lastname}}
       </span>
     </div>
-    <div class="text-white pt-5">
+    -->
+    <!-- <div class="text-white pt-5">
       <span class="rounded-circle bg-secondary py-4 px-1"> 1. Contact</span>
       <span class="text-secondary">-----------</span>
       <span class="border border-dark bg-secondary p-1">information exchange</span>
@@ -80,9 +81,114 @@
       <span class="border border-dark bg-secondary p-1"> skill delivery</span>
       <span class="text-secondary">-----------</span>
       <span class="rounded-circle bg-secondary py-4 px-1">3. Finalization</span>
+    </div> -->
 
-    </div>
-    <div class="mt-5">
+    <ul class="stepper linear">
+      <li class="step active">
+        <div class="step-new-content">
+          <div class="row">
+            <div class="md-form col-12 ml-auto">
+              Service requested at {{selectedTransaction.requestedAt}}
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="step" *ngIf="showRequestApproveDialog()">
+        <div class="step-new-content">
+          <div class="row">
+            <div class="md-form col-12 ml-auto">
+              <h2 class="m-4">Do you want to approve this request?</h2>
+            </div>
+          </div>
+          <div class="step-actions">
+            <button type="button" class="btn btn-primary" (click)="approveTransaction()">Yes</button>
+            <button type="button" class="btn btn-primary">No</button>
+          </div>
+        </div>
+      </li>
+      <li class="step" *ngIf="showSkillHOursInput()">
+        <div class="step-title waves-effect waves-dark">Please contact
+          {{selectedTransaction.post.author.firstname}}
+          {{selectedTransaction.post.author.lastname}}
+          by mail to agree on all relevant topics
+          (such as contents, number of skillhours, location, date).
+          Only thereafter, approve the below request and its amount of skillhours.</div>
+        <div class="step-new-content">
+          <div class="step-actions">
+            <input #hours type="text" class="form-control mx-auto  w-25" name="msg" placeholder="Skill hours" required>
+            <button type="button" class="btn btn-primary mt-4"
+              (click)="setTransactionSkillHours(hours.value)">OK</button>
+          </div>
+        </div>
+      </li>
+      <li class="step" *ngIf="selectedTransaction.agreedSkillHours">
+        <div class="step-new-content">
+          <div class="row">
+            <div class="md-form col-12 ml-auto">
+              Agreed skillhours: {{selectedTransaction.agreedSkillHours}}
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="step" *ngIf="showSkillHOursConfirmationDialog()">
+        <div class="step-new-content">
+          <div class="step-actions">
+            <button type="button" class="btn btn-primary mt-4" (click)="confirmTransactionSkillHours()">Confirm
+              hours</button>
+          </div>
+        </div>
+      </li>
+      <li class="step" >
+        <div class="step-new-content" *ngIf="showDeliveredConfirmationDialog() && selectedTransaction.deliveredByAuthorAt == null">
+          <div class="row">
+            <div class="md-form col-12 ml-auto">
+              Set as delivered
+            </div>
+          </div>
+          <div class="step-actions">
+            <ngb-rating [(rate)]="selectedTransaction.user.rating">Your rate
+            </ngb-rating>
+            <br>
+            <button type="button" class="btn btn-primary mt-4" (click)="confirmDeliveryByAuthor()">Confirm</button>
+          </div>
+        </div>
+      </li>
+      <li class="step" *ngIf="showDeliveredConfirmationDialog() && selectedTransaction.deliveredByAuthorAt">
+        <div class="step-new-content">
+          <div class="row">
+            <div class="md-form col-12 ml-auto">
+              Delivered at {{selectedTransaction.deliveredByAuthorAt}}
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="step" *ngIf="showConfirmDeliveredConfirmationDialog()">
+        <div class="step-new-content" *ngIf="selectedTransaction.deliveredByAuthorAt &&
+        selectedTransaction.deliveredByRequesterAt == undefined">
+          <div class="row">
+            <div class="md-form col-12 ml-auto">
+              Confirm as delivered
+            </div>
+          </div>
+          <div class="step-actions">
+            <ngb-rating [(rate)]="selectedTransaction.post.author.rating">Your rate
+            </ngb-rating>
+            <br>
+            <button type="button" class="btn btn-primary mt-4" (click)="confirmDeliveryByRequester()">Confirm</button>
+          </div>
+        </div>
+      </li>
+      <li class="step" *ngIf="showRatingAuhtorDialog()">
+        <div class="step-new-content">
+          <div class="row">
+            <div class="md-form col-12 ml-auto">
+            Delivered at {{selectedTransaction.deliveredByRequesterAt}}
+          </div>
+        </div>
+        </div>
+      </li>
+    </ul>
+    <!-- <div class="mt-5">
       <div>
         Service requested at {{selectedTransaction.requestedAt}}
         <i class="bi bi-check-circle"></i>
@@ -90,7 +196,6 @@
       <div *ngIf="showRequestApproveDialog()">
         <h2 class="m-4">Do you want to approve this request?</h2>
         <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-primary" (click)="changeTransactionState()">Yes</button>
           <button type="button" class="btn btn-primary">No</button>
         </div>
       </div>
@@ -123,7 +228,7 @@
           Set as delivered
           <br>
           <button type="button" class="btn btn-primary mt-4" (click)="confirmDeliveryByAuthor()">Confirm</button>
-          <ngb-rating [(rate)]="selectedTransaction.user.rating" >Your rate
+          <ngb-rating [(rate)]="selectedTransaction.user.rating">Your rate
           </ngb-rating>
 
         </p>
@@ -154,7 +259,7 @@
         </p>
       </div>
 
-    </div>
+    </div> -->
   </div>
   <router-outlet></router-outlet>
 

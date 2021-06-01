@@ -60,7 +60,17 @@ export class SkillComponent implements OnInit {
         alert(error.message);
       }
     );
+  }
 
+  updateWishList() {
+    this.skillService.updateWishList(this.currentPost.id).subscribe(
+      () => {
+        alert("Request was succsessfully submitted");
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 
 }

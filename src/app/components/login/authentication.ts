@@ -10,6 +10,7 @@ export class AuthenticationResponse {
   firstname : string;
   lastname: string;
   rating: string;
+  image: String;
   available: String;
   earned: String;
   used: String;

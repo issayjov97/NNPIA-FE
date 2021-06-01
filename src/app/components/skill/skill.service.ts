@@ -20,4 +20,8 @@ export class SkillService {
   createRequest(transaction: Transaction): Observable<any> {
     return this.httpClient.post<Transaction>(`/api/v1/transactions`, transaction);
   }
+
+  updateWishList(postId: String) {
+    return this.httpClient.post(`/api/v1/users/wishlist?postId=${postId}`,null);
+  }
 }

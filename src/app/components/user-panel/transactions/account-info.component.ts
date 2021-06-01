@@ -58,14 +58,12 @@ export class AccountInfoComponent implements OnInit {
   }
 
   setTransaction(index: number) {
-    console.log(index);
-    console.log(this.myTransactions);
-
     this.selectedTransaction = this.myTransactions[index];
-    console.log(this.selectedTransaction);
-
   }
 
+  approveTransaction() {
+    this.selectedTransaction.status = this.transactionState[this.transactionState.APPROVED];
+  }
   showRequestApproveDialog(): boolean {
     return this.selectedTransaction.post.author.username == this.loginService.getUser().username &&
       this.selectedTransaction.status.toString() == TransactionState[TransactionState.REQUESTED].toString();
@@ -99,34 +97,38 @@ export class AccountInfoComponent implements OnInit {
       this.selectedTransaction.user.username == this.loginService.getUser().username;
   }
 
-
-  changeTransactionState() {
-    this.selectedTransaction.status = this.transactionState[this.transactionState.APPROVED];
-  }
-
   setTransactionSkillHours(value: String) {
-    console.log(value);
-    this.selectedTransaction.approvedByAuthorAt = new Date().toISOString();
-    this.selectedTransaction.agreedSkillHours = value;
-    this.updateTransactionState(this.selectedTransaction);
+    let transaction = new Transaction();
+    transaction.id = this.selectedTransaction.id;
+    transaction.approvedByAuthorAt = this.selectedTransaction.approvedByAuthorAt = new Date().toISOString();
+    transaction.agreedSkillHours = this.selectedTransaction.agreedSkillHours = value;
+    transaction.status = this.selectedTransaction.status = this.transactionState[this.transactionState.APPROVED];
+    this.updateTransactionState(transaction);
+
   }
 
   confirmTransactionSkillHours() {
-    this.selectedTransaction.approvedByRequesterAt = new Date().toISOString();
-    this.selectedTransaction.status = this.transactionState[this.transactionState.ACTIVE];
-    this.updateTransactionState(this.selectedTransaction);
+    let transaction = new Transaction();
+    transaction.id = this.selectedTransaction.id;
+    transaction.approvedByRequesterAt = this.selectedTransaction.approvedByRequesterAt = new Date().toISOString();
+    transaction.status = this.selectedTransaction.status = this.transactionState[this.transactionState.ACTIVE];
+    this.updateTransactionState(transaction);
   }
 
   confirmDeliveryByAuthor() {
-    this.selectedTransaction.deliveredByAuthorAt = new Date().toISOString();
-    this.updateTransactionState(this.selectedTransaction);
-    this.updateRate(this.selectedTransaction.user.username,this.selectedTransaction.user.rating);
+    let transaction = new Transaction();
+    transaction.id = this.selectedTransaction.id;
+    transaction.deliveredByAuthorAt = this.selectedTransaction.deliveredByAuthorAt = new Date().toISOString();
+    this.updateTransactionState(transaction);
+    this.updateRate(this.selectedTransaction.user.username, this.selectedTransaction.user.rating);
   }
   confirmDeliveryByRequester() {
-    this.selectedTransaction.deliveredByRequesterAt = new Date().toISOString();
-    this.selectedTransaction.status = this.transactionState[this.transactionState.DELIVERED];
-    this.updateTransactionState(this.selectedTransaction);
-    this.updateRate(this.selectedTransaction.post.author.username,this.selectedTransaction.post.author.rating);
+    let transaction = new Transaction();
+    transaction.id = this.selectedTransaction.id;
+    transaction.deliveredByRequesterAt = this.selectedTransaction.deliveredByRequesterAt = new Date().toISOString();
+    transaction.status = this.selectedTransaction.status = this.transactionState[this.transactionState.DELIVERED];
+    this.updateTransactionState(transaction);
+    this.updateRate(this.selectedTransaction.post.author.username, this.selectedTransaction.post.author.rating);
   }
 
 
@@ -140,16 +142,6 @@ export class AccountInfoComponent implements OnInit {
       }
     );
   }
-
-  deliveredTransaction() {
-    this.selectedTransaction.deliveredByAuthorAt = new Date().toISOString();
-  }
-
-  confirmDeliveredTransaction() {
-    this.selectedTransaction.status = TransactionState[TransactionState.DELIVERED].toString();
-    this.selectedTransaction.deliveredByRequesterAt = new Date().toISOString();
-  }
-
   updateRate(email: String, value: String) {
     this.transactionService.updateRating(email, value).subscribe(
       () => {
