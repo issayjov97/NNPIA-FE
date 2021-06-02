@@ -1,4 +1,4 @@
-**Frontend for Skills exchange application**
+## Frontend for Skills exchange application
 
 **Description**
 
