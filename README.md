@@ -1,4 +1,20 @@
-# SkillsFe
+**Frontend for Skills exchange application**
+
+**Description**
+
+Skills exchange is the place, where exchanging skills and talents becomes easy. Swap your skills, find what you are looking for. It's all free, you just "pay" with your time.
+
+**Development tools**
+
+* Angular v9.0
+* Visual studio code
+* Typescript
+
+**Technical requirments**
+
+* Node - runtime environment for executing JavaScript code from the command-line
+* Tsc - TypeScript compiler. Complies Typescript into Javascript
+* NPM - Node Package Manager (node inclueds npm)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.6.
 
@@ -25,3 +41,10 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+**Testing**
+
+username: st55409@upce.cz password: 275822dd,
+username: jovkhar.issayev@addai.cz password: 275822df.
+That application was deployed on Heroku.
+FE url(temporary): https://nnpia-skillsap-fe.herokuapp.com/skills
