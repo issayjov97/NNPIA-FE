@@ -45,6 +45,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Testing
 
 username: st55409@upce.cz password: 275822dd,
+
 username: jovkhar.issayev@addai.cz password: 275822df.
+
 That application was deployed on Heroku.
+
 FE url(temporary): https://nnpia-skillsap-fe.herokuapp.com/skills
