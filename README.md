@@ -1,16 +1,16 @@
 ## Frontend for Skills exchange application
 
-**Description**
+## Description
 
 Skills exchange is the place, where exchanging skills and talents becomes easy. Swap your skills, find what you are looking for. It's all free, you just "pay" with your time.
 
-**Development tools**
+## Development tools
 
 * Angular v9.0
 * Visual studio code
 * Typescript
 
-**Technical requirments**
+## Technical requirments
 
 * Node - runtime environment for executing JavaScript code from the command-line
 * Tsc - TypeScript compiler. Complies Typescript into Javascript
@@ -42,7 +42,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-**Testing**
+## Testing
 
 username: st55409@upce.cz password: 275822dd,
 username: jovkhar.issayev@addai.cz password: 275822df.
